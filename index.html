@@ -20,6 +20,9 @@
             img.onload = function() {
                 canvas.width = img.width;
                 canvas.height = img.height;
+                console.log('canvas.width', canvas.width);
+                console.log('canvas.height', canvas.height);
+                console.log('grid_size', grid_size);
                 context.drawImage(img, 0, 0);
                 drawGrid();
                 grid = new Array(Math.ceil(canvas.width / grid_size)).fill(0).map(() => new Array(Math.ceil(canvas.height / grid_size)).fill(false));
