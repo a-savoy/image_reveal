@@ -33,8 +33,8 @@
         }
 
         function revealSquare(evt, img) {
-            const x = Math.floor(evt.layerX / grid_size);
-            const y = Math.floor(evt.layerY / grid_size);
+            const x = Math.floor(evt.offsetX / grid_size);
+            const y = Math.floor(evt.offsetY / grid_size);
             console.log(`Clicked at grid coordinates: (${x}, ${y})`);
             if (x < grid.length && y < grid[0].length) {
                 console.log(`Grid dimensions: (${grid.length}, ${grid[0].length})`);
@@ -49,7 +49,6 @@
                 }
             }
         }
-
 
         function drawGrid() {
             context.fillStyle = 'white';
