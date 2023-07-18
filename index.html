@@ -33,7 +33,7 @@
         function revealSquare(evt) {
             const x = Math.floor(evt.layerX / grid_size);
             const y = Math.floor(evt.layerY / grid_size);
-            if (!grid[x][y]) {
+            if (x < grid.length && y < grid[0].length && !grid[x][y]) {
                 context.clearRect(x * grid_size, y * grid_size, grid_size, grid_size);
                 grid[x][y] = true;
             }
