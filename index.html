@@ -10,10 +10,11 @@
         const context = canvas.getContext('2d');
         const grid_size = 50;
         let grid = [];
+        let img;  // Here's where we'll keep the loaded image
 
         function loadImage() {
             const url = document.getElementById('inputURL').value;
-            const img = new Image();
+            img = new Image();
             img.crossOrigin = "Anonymous"; // This enables CORS
             img.onload = function() {
                 canvas.width = img.width;
