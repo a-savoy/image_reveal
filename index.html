@@ -40,11 +40,12 @@
                 console.log(`Grid dimensions: (${grid.length}, ${grid[0].length})`);
                 if (!grid[x][y]) {
                     console.log(`Drawing image region: (${x * grid_size}, ${y * grid_size}, ${grid_size}, ${grid_size})`);
-                    context.drawImage(
-                        img, 
-                        x * grid_size, y * grid_size, grid_size, grid_size, 
-                        x * grid_size, y * grid_size, grid_size, grid_size
-                    );
+                    context.save();
+                    context.beginPath();
+                    context.rect(x * grid_size, y * grid_size, grid_size, grid_size);
+                    context.clip();
+                    context.drawImage(img, 0, 0);
+                    context.restore();
                     grid[x][y] = true;
                 }
             }
