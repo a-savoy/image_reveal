@@ -36,7 +36,11 @@
             const x = Math.floor(evt.layerX / grid_size);
             const y = Math.floor(evt.layerY / grid_size);
             if (x < grid.length && y < grid[0].length && !grid[x][y]) {
-                context.drawImage(img, x * grid_size, y * grid_size, grid_size, grid_size, x * grid_size, y * grid_size, grid_size, grid_size);
+                context.drawImage(
+                    img, 
+                    x * grid_size, y * grid_size, grid_size, grid_size, 
+                    x * grid_size, y * grid_size, grid_size, grid_size
+                );
                 grid[x][y] = true;
             }
         }
