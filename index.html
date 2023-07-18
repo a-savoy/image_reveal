@@ -26,9 +26,25 @@
                 context.drawImage(img, 0, 0);
                 drawGrid();
                 grid = new Array(Math.ceil(canvas.width / grid_size)).fill(0).map(() => new Array(Math.ceil(canvas.height / grid_size)).fill(false));
+                // Enable the click event
+                canvas.addEventListener('click', revealSquare);
             }
             img.src = url;
         }
+
+canvas.addEventListener('click', function(evt) {
+    // Check if the grid array has been created
+    if (!grid) {
+        return;
+    }
+    const x = evt.layerX - (evt.layerX % grid_size);
+    const y = evt.layerY - (evt.layerY % grid_size);
+    if (!grid[x / grid_size][y / grid_size]) {
+        context.clearRect(x, y, grid_size, grid_size);
+        grid[x / grid_size][y / grid_size] = true;
+    }
+});
+
 
         canvas.addEventListener('click', function(evt) {
             const x = evt.layerX - (evt.layerX % grid_size);
