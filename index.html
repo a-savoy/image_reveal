@@ -10,11 +10,10 @@
         const context = canvas.getContext('2d');
         const grid_size = 50;
         let grid = [];
-        let img;  // Here's where we'll keep the loaded image
 
         function loadImage() {
             const url = document.getElementById('inputURL').value;
-            img = new Image();
+            let img = new Image();
             img.crossOrigin = "Anonymous"; // This enables CORS
             img.onload = function() {
                 canvas.width = img.width;
@@ -26,12 +25,14 @@
                 drawGrid();
                 grid = new Array(Math.ceil(canvas.width / grid_size)).fill(0).map(() => new Array(Math.ceil(canvas.height / grid_size)).fill(false));
                 // Enable the click event
-                canvas.addEventListener('click', revealSquare);
+                canvas.addEventListener('click', function(evt) {
+                    revealSquare(evt, img);
+                });
             }
             img.src = url;
         }
 
-        function revealSquare(evt) {
+        function revealSquare(evt, img) {
             const x = Math.floor(evt.layerX / grid_size);
             const y = Math.floor(evt.layerY / grid_size);
             if (x < grid.length && y < grid[0].length && !grid[x][y]) {
