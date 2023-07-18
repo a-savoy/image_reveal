@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2299.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="text" id="inputURL" placeholder="Enter image URL" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="loadImage()"&gt;Load Image&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;canvas id="myCanvas"&gt;&lt;/canvas&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const canvas = document.getElementById('myCanvas');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const context = canvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const grid_size = 50;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let grid = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('inputURL').addEventListener('input', loadImage);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function loadImage() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const url = document.getElementById('inputURL').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const img = new Image();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img.crossOrigin = "Anonymous"; // This enables CORS</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img.onload = function() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>canvas.width = img.width;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>canvas.height = img.height;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>context.drawImage(img, 0, 0);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>drawGrid();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>grid = new Array(canvas.width / grid_size).fill(0).map(() =&gt; new Array(canvas.height / grid_size).fill(false));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img.src = url;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('click', function(evt) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const x = evt.layerX - (evt.layerX % grid_size);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const y = evt.layerY - (evt.layerY % grid_size);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!grid[x / grid_size][y / grid_size]) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>context.clearRect(x, y, grid_size, grid_size);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>grid[x / grid_size][y / grid_size] = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function drawGrid() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>context.fillStyle = 'white';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>context.fillRect(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>context.strokeStyle = 'black';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; canvas.width; i += grid_size) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (let j = 0; j &lt; canvas.height; j += grid_size) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>context.strokeRect(i, j, grid_size, grid_size);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
