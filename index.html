@@ -22,7 +22,7 @@
                 canvas.height = img.height;
                 context.drawImage(img, 0, 0);
                 drawGrid();
-                grid = new Array(canvas.width / grid_size).fill(0).map(() => new Array(canvas.height / grid_size).fill(false));
+                grid = new Array(Math.ceil(canvas.width / grid_size)).fill(0).map(() => new Array(Math.ceil(canvas.height / grid_size)).fill(false));
             }
             img.src = url;
         }
